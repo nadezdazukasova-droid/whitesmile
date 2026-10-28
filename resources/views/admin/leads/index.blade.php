@@ -54,18 +54,44 @@
                             {{-- КОЛОНКА ДЕЙСТВИЙ --}}
                             <td style="width: 1%; white-space: nowrap;">
                                 @if ($lead->status === 'new')
-                                    <form action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;" onsubmit="event.stopPropagation();">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn-icon btn-icon-approve" title="Обработана" onclick="event.stopPropagation();">✓</button>
-                                    </form>
-                                @else
-                                    <form action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;" onsubmit="event.stopPropagation();">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn-icon btn-icon-unapprove" title="Вернуть в новые" onclick="event.stopPropagation();">⊘</button>
-                                    </form>
-                                @endif
+    <a href="#" 
+       onclick="event.preventDefault(); 
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '{{ route('admin.leads.processed', $lead->id) }}';
+                form.innerHTML = '@csrf @method('PATCH')';
+                document.body.appendChild(form);
+                form.submit();" 
+       class="btn-icon btn-icon-approve" 
+       title="Обработана" 
+       style="text-decoration:none;">✓</a>
+@else
+    <a href="#" 
+       onclick="event.preventDefault(); 
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '{{ route('admin.leads.processed', $lead->id) }}';
+                form.innerHTML = '@csrf @method('PATCH')';
+                document.body.appendChild(form);
+                form.submit();" 
+       class="btn-icon btn-icon-unapprove" 
+       title="Вернуть в новые" 
+       style="text-decoration:none;">⊘</a>
+@endif
+
+<a href="#" 
+   onclick="event.preventDefault(); 
+            if(confirm('Удалить заявку?')) {
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '{{ route('admin.leads.destroy', $lead->id) }}';
+                form.innerHTML = '@csrf @method('DELETE')';
+                document.body.appendChild(form);
+                form.submit();
+            }" 
+   class="btn-icon btn-icon-delete" 
+   title="Удалить" 
+   style="text-decoration:none;">🗑</a>
 
                                 <form action="{{ route('admin.leads.destroy', $lead->id) }}" method="POST" style="display:inline;">
                                     @csrf
