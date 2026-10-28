@@ -42,17 +42,17 @@
                                 {{ $lead->comment ?: '—' }}
                             </td>
                             <td>
-                                                                @if ($lead->status === 'new')
-    <form id="form-lead-{{ $lead->id }}" action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;">
+                                                 @if ($lead->status === 'new')
+    <form action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;" onsubmit="event.stopPropagation();">
         @csrf
         @method('PATCH')
-        <button type="submit" form="form-lead-{{ $lead->id }}" class="btn-icon btn-icon-approve" title="Обработана" onclick="this.form.submit(); return false;">✓</button>
+        <button type="submit" class="btn-icon btn-icon-approve" title="Обработана" onclick="event.stopPropagation();">✓</button>
     </form>
 @else
-    <form id="form-lead-{{ $lead->id }}" action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;">
+    <form action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;" onsubmit="event.stopPropagation();">
         @csrf
         @method('PATCH')
-        <button type="submit" form="form-lead-{{ $lead->id }}" class="btn-icon btn-icon-unapprove" title="Вернуть в новые" onclick="this.form.submit(); return false;">⊘</button>
+        <button type="submit" class="btn-icon btn-icon-unapprove" title="Вернуть в новые" onclick="event.stopPropagation();">⊘</button>
     </form>
 @endif
 
