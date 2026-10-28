@@ -94,3 +94,17 @@
     @endif
 </div>
 @endsection
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Отключаем глобальный перехватчик уведомлений на этой странице
+        // чтобы он не мешал кнопкам работать
+        window.updateUnreadCount = null; 
+        
+        // Принудительно убираем все обработчики кликов с кнопок, если они были навешаны
+        setTimeout(() => {
+            document.querySelectorAll('form').forEach(form => {
+                form.style.pointerEvents = 'auto';
+            });
+        }, 100);
+    });
+</script>
