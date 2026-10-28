@@ -1381,7 +1381,7 @@
 
                 <div class="call-field">
                     <label for="lead_phone">Телефон</label>
-                    <input type="tel" id="lead_phone" name="phone" required pattern="^\+?[0-9\s\-\(\)]{7,20}$" title="Телефон в формате +7 (999) 123-45-67" placeholder="+7 (999) 123-45-67">
+                    <input type="tel" id="lead_phone" name="phone" required title="Телефон в формате +7 (999) 123-45-67" placeholder="+7 (999) 123-45-67">
                 </div>
 
                 <div class="call-field">
@@ -1731,6 +1731,22 @@
 
         setupCarousel('reviews-carousel');
         setupCarousel('doctors-carousel');
+    });
+</script>
+<!-- 6. Маска для телефона -->
+<script src="https://unpkg.com/imask"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var phoneInputs = document.querySelectorAll('input[name="phone"]');
+        
+        phoneInputs.forEach(function(input) {
+            var maskOptions = {
+                mask: '+{7}-000-000-00-00',
+                lazy: false, 
+                placeholderChar: '_' 
+            };
+            IMask(input, maskOptions);
+        });
     });
 </script>
 </body>
