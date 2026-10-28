@@ -100,7 +100,7 @@
             <p style="font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 8px;">
                 У вас пока нет записей
             </p>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">
+            <p style="color: black; margin-bottom: 20px;">
                 Запишитесь на приём — это займёт минуту
             </p>
             <a href="{{ route('appointments.create') }}" class="btn-gold">Записаться на приём</a>
