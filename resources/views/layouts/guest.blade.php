@@ -394,5 +394,24 @@
         });
     });
 </script>
+    <script src="https://unpkg.com/imask"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Ищем все поля ввода телефона
+        var phoneInputs = document.querySelectorAll('input#phone, input[name="phone"], input[type="tel"]');
+        
+        phoneInputs.forEach(function(input) {
+            if (input.dataset.masked) return; 
+            
+            var maskOptions = {
+                mask: '+{7}-000-000-00-00',
+                lazy: false, 
+                placeholderChar: '_' 
+            };
+            IMask(input, maskOptions);
+            input.dataset.masked = "true"; 
+        });
+    });
+</script>
 </body>
 </html>
