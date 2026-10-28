@@ -43,18 +43,18 @@
                             </td>
                             <td>
                                                                 @if ($lead->status === 'new')
-                                    <form action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn btn-sm btn-success" title="Обработана" onclick="this.form.submit(); return false;">✓</button>
-                                    </form>
-                                @else
-                                    <form action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn btn-sm btn-secondary" title="Вернуть в новые" onclick="this.form.submit(); return false;">⊘</button>
-                                    </form>
-                                @endif
+    <form id="form-lead-{{ $lead->id }}" action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;">
+        @csrf
+        @method('PATCH')
+        <button type="submit" form="form-lead-{{ $lead->id }}" class="btn-icon btn-icon-approve" title="Обработана" onclick="this.form.submit(); return false;">✓</button>
+    </form>
+@else
+    <form id="form-lead-{{ $lead->id }}" action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;">
+        @csrf
+        @method('PATCH')
+        <button type="submit" form="form-lead-{{ $lead->id }}" class="btn-icon btn-icon-unapprove" title="Вернуть в новые" onclick="this.form.submit(); return false;">⊘</button>
+    </form>
+@endif
 
                                 <form action="{{ route('admin.leads.destroy', $lead->id) }}" method="POST" style="display:inline;">
                                     @csrf
