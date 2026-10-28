@@ -42,24 +42,17 @@
                                 {{ $lead->comment ?: '—' }}
                             </td>
                             <td>
-                                @if ($lead->status === 'new')
-                                    <span class="badge bg-warning text-dark">Новая</span>
-                                @else
-                                    <span class="badge bg-success">Обработана</span>
-                                @endif
-                            </td>
-                            <td style="width: 1%; white-space: nowrap;">
-                                @if ($lead->status === 'new')
+                                                                @if ($lead->status === 'new')
                                     <form action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="btn-icon btn-icon-approve" title="Обработана">✓</button>
+                                        <button type="submit" class="btn btn-sm btn-success" title="Обработана" onclick="this.form.submit(); return false;">✓</button>
                                     </form>
                                 @else
                                     <form action="{{ route('admin.leads.processed', $lead->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="btn-icon btn-icon-unapprove" title="Вернуть в новые">⊘</button>
+                                        <button type="submit" class="btn btn-sm btn-secondary" title="Вернуть в новые" onclick="this.form.submit(); return false;">⊘</button>
                                     </form>
                                 @endif
 
