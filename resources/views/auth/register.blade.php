@@ -95,7 +95,6 @@
                    class="auth-input"
                    value="{{ old('phone') }}"
                    required
-                   pattern="^\+?[0-9\s\-\(\)]{7,20}$"
                    title="Телефон в формате +7 (999) 123-45-67"
                    placeholder="+7 (999) 123-45-67"
                    autocomplete="tel">
