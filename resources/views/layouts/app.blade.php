@@ -1536,6 +1536,9 @@
 <!-- 4. Уведомления — счётчик -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        if (window.location.pathname.startsWith('/admin')) {
+            return;
+        }
         const btn = document.getElementById('notificationsBtn');
         const dropdown = document.getElementById('notificationsDropdown');
         const wrapper = document.getElementById('notificationsWrapper');
