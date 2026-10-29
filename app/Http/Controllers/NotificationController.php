@@ -83,9 +83,6 @@ class NotificationController extends Controller
                 ];
             });
 
-        return response()->json([
-            'count' => auth()->user()->unreadNotificationsCount(),
-            'notifications' => $notifications,
-        ]);
+       return response()->json(['count' => $count, 'notifications' => $notifications], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }
