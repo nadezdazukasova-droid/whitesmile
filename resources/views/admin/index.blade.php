@@ -121,12 +121,13 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault(); // Отменяем стандартную перезагрузку
             
             fetch(this.action, {
-                method: 'POST',
-                body: new FormData(this),
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest' // Говорим Laravel, что это AJAX
-                }
-            })
+    method: 'POST',
+    body: new FormData(this),
+    credentials: 'include', // <--- ДОБАВИТЬ ВОТ ЭТУ СТРОКУ
+    headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+    }
+})
             .then(response => {
                 if (response.ok) {
                     // Если всё ок, перезагружаем страницу, чтобы увидеть новый статус
