@@ -103,4 +103,42 @@
         </div>
     @endif
 </div>
+    @if ($appointments->hasPages())
+        <div class="mt-4 d-flex justify-content-center">
+            {{ $appointments->links() }}
+        </div>
+    @endif
+</div> <!-- Это ваш закрывающий тег (строка 105) -->
+
+<!-- ВСТАВЛЯТЬ СЮДА, В САМЫЙ КОНЕЦ ФАЙЛА -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Ищем все формы, которые меняют статус заявки
+    const forms = document.querySelectorAll('form[action*="updateStatus"]');
+    
+    forms.forEach(form => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Отменяем стандартную перезагрузку
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest' // Говорим Laravel, что это AJAX
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Если всё ок, перезагружаем страницу, чтобы увидеть новый статус
+                    window.location.reload(); 
+                } else {
+                    alert('Ошибка сервера: ' + response.status);
+                }
+            })
+            .catch(error => alert('Ошибка сети: ' + error));
+        });
+    });
+});
+</script>
+<!-- КОНЕЦ СКРИПТА -->
 @endsection
