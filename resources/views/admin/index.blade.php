@@ -113,32 +113,19 @@
 <!-- ВСТАВЛЯТЬ СЮДА, В САМЫЙ КОНЕЦ ФАЙЛА -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Ищем все формы, которые меняют статус заявки
+    // Находим все формы, которые меняют статус
     const forms = document.querySelectorAll('form[action*="updateStatus"]');
     
     forms.forEach(form => {
         form.addEventListener('submit', function (e) {
-            e.preventDefault(); // Отменяем стандартную перезагрузку
-            
-            fetch(this.action, {
-    method: 'POST',
-    body: new FormData(this),
-    credentials: 'include', 
-    headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        // ДОБАВЛЯЕМ ТОКЕН ВРУЧНУЮ:
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]') ? document.querySelector('meta[name="csrf-token"]').getAttribute('content') : ''
-    }
-})
-            .then(response => {
-                if (response.ok) {
-                    // Если всё ок, перезагружаем страницу, чтобы увидеть новый статус
-                    window.location.reload(); 
-                } else {
-                    alert('Ошибка сервера: ' + response.status);
-                }
-            })
-            .catch(error => alert('Ошибка сети: ' + error));
+            // Мы НЕ отменяем отправку (нет e.preventDefault()). 
+            // Форма просто уйдет на сервер как обычно, с куками и CSRF-токеном.
+            // Единственное, что мы делаем — блокируем кнопку, чтобы не нажали дважды.
+            const btn = this.querySelector('button[type="submit"]');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '...'; // Показываем, что идет загрузка
+            }
         });
     });
 });
