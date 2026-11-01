@@ -123,9 +123,11 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch(this.action, {
     method: 'POST',
     body: new FormData(this),
-    credentials: 'include', // <--- ДОБАВИТЬ ВОТ ЭТУ СТРОКУ
+    credentials: 'include', 
     headers: {
-        'X-Requested-With': 'XMLHttpRequest'
+        'X-Requested-With': 'XMLHttpRequest',
+        // ДОБАВЛЯЕМ ТОКЕН ВРУЧНУЮ:
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]') ? document.querySelector('meta[name="csrf-token"]').getAttribute('content') : ''
     }
 })
             .then(response => {
